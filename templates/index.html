@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Titillium Web' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Patua One' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/index.css')}}">
+    <link href="https://allfont.net/allfont.css?fonts=league-spartan" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.cdnfonts.com/css/yanone-kaffeesatz" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{url_for('static', filename = 'js/index.js')}}"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hairdresser</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="offset-sm-2 col-sm-2 text-center">
+                    <img class = "logo" src="{{url_for('static', filename = 'images/logo.png')}}" alt="logo"></img>
+                </div>
+                <div class="col-sm-5">
+                    <div class="navbar">
+                        <ul class = "nav-list">
+                            <li class = "nav-list-item1"><a class = "active" href="#">H O M E</a></li>
+                            <li class = "nav-list-item2"><a class = "inactive" href="#">A B O U T</a></li>
+                            <li class = "nav-list-item3"><a class = "inactive" href="#">C O N T A C T</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <div class="row">
+                <div class="offset-sm-4"></div>
+                <div class="col-sm-5" id = "middle">
+                    <div class="row" id = "home">
+                        <div class = "col-sm-4 content-text">
+                            <img class = "content-text-img" src="{{url_for('static', filename = 'images/content-text.png')}}" alt="src">
+                        </div>
+                        <div class = "col-sm-8">
+                            <div class="animated-logo text-right">
+                                <img class = "logo-left" src="{{url_for('static', filename = 'images/logo-left.png')}}" alt="src">
+                                <img class = "logo-mid" src="{{url_for('static', filename = 'images/logo-mid.png')}}" alt="src">
+                                <img class = "logo-right" src="{{url_for('static', filename = 'images/logo-right.png')}}" alt="src">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row content-text" id = "about" style="height:375px;width: 800px;font-family: 'Titillium Web';font-size: 22px;font-weight: bold;">
+                        <div class = "col-sm-8">
+                            <p style="color: #000;">
+                                A simple website that helps you discern the best hairstyle for you. 
+                                Built using html, css, javascript and bootstrap on the front-end and Flask on the backend.
+                                The website is hosted on my local machine using localtunnel.  
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row content-text" id = "contact"  style="height:375px;width: 800px;">
+                        <div class = "col-sm-12">
+                            <p style="color: #000;">
+                                <dl>  
+                                    <dt style="font-family: 'Patua One';font-size: 30px;font-weight: bold;"><a target="_blank" href = "https://www.linkedin.com/in/vikrant-singh-2146ba1a1/">Vikrant Singh</a></dt>  
+                                    <dd style="font-family: 'Titillium Web';font-size: 22px;font-weight: bold;">Developed the frontend and the backend for the website using flask and basic frontend technologies.</dd>  
+                                    <dt style="font-family: 'Patua One';font-size: 30px;font-weight: bold;"><a target="_blank" href = "https://www.linkedin.com/in/vishal-mishra-1920151b3/">Vishal Mishra</a></dt>  
+                                    <dd style="font-family: 'Titillium Web';font-size: 22px;font-weight: bold;">Developed the face shape recognition system using machine learning priciples and technologies.</dd>   
+                                </dl>  
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="offset-sm-3">
+                </div>
+            </div>
+        </div>
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <img src="{{url_for('static', filename = 'images/face-detection.png')}}" id = "image-detection-png')}}" alt="image detection" height="30px" width="30px">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Make Sure You Have Good Lighting
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="offset-sm-1"></div>
+                    <div class="col-sm-10" align = "center">
+                        <div id="camera">
+                    
+                        </div>
+                    </div>
+                    <div class="offset-sm-1"></div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" id = "retake-button">
+                    <i class="fa fa-refresh"></i>
+                  </button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-dark" onclick="take_snapshot()">Capture</button>
+                  <button type="button" class="btn btn-danger" id = "result-button" data-dismiss="modal">Get Results</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="row button-container">
+            <div class="offset-sm-4"></div>
+            <div class="col-sm-5 text-center">
+                <a class="start-button" data-toggle="modal" data-target="#exampleModal">
+                    Start→
+                </a>
+            </div>
+            <div class="offset-sm-3"></div>
+        </div>
+        <div class="footer">
+            <div class = "footer-image text-center">
+                <img src="{{url_for('static', filename = 'images/footer-skyline.png')}}" alt="footer-img">
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
+<script src="{{url_for('static', filename = 'js/webcam-functionality.js')}}"></script>
+</html>
