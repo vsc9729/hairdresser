@@ -1,25 +1,23 @@
-
 from PIL import Image
 import tensorflow as tf
 from tensorflow import keras
 from keras import models
 from keras.preprocessing import image
 import numpy as np
-from tensorflow import Graph
 import cv2
 from flask import Flask, request, render_template, redirect, url_for
 import base64
 from io import BytesIO
 
+# Enable eager execution
+tf.compat.v1.enable_eager_execution()
+
 img_height, img_width=64,64
 
 app = Flask(__name__)    
 
-model_graph = Graph()
-with model_graph.as_default():
-    tf_session = tf.compat.v1.Session()
-    with tf_session.as_default():
-        model=keras.models.load_model('face_shape.h5')
+# Load the model once at startup
+model = keras.models.load_model('face_shape.h5')
 
 @app.route('/')
 def home():
@@ -46,8 +44,6 @@ def roundface():
     return render_template('round.html')
 
 
-
-
 @app.route('/process', methods = ['POST'])
 def get_post_javascript_data():
     base64Image = str(request.form.get('base64Image')).replace("data:image/jpeg;base64,", "");
@@ -65,14 +61,11 @@ def get_post_javascript_data():
     newsize = (64, 64)
     img = img.resize(newsize)
     x = image.img_to_array(img)
-    x=x/255
-    x=x.reshape(1,img_height, img_width,3)
+    x = x/255
+    x = x.reshape(1, img_height, img_width, 3)
 
-    with model_graph.as_default():
-        with tf_session.as_default():
-            model=keras.models.load_model('face_shape.h5')
-            a = model.predict(x)
-
+    # Use the model directly without reloading
+    a = model.predict(x)
         
     my_context = {
         "one": f'{a[0][0]*100} % heart shaped',
@@ -81,7 +74,7 @@ def get_post_javascript_data():
         "four": f'{a[0][3]*100} % Round',
         "five": f'{a[0][4]*100} % Square'
     }
-    a= a[0]
+    a = a[0]
     max_shape = max(a)
     if max_shape == a[0]:
         return url_for('heart')
@@ -93,9 +86,8 @@ def get_post_javascript_data():
         return url_for('roundface')
     elif max_shape == a[4]:
         return url_for('square')
-     
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=8080)
     
